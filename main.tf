@@ -14,11 +14,11 @@ provider "aws" {
 
 module "vpc" {
   source = "./terraform-workspace/modules/vpc"
-  cidr_block = var.vpc_cidr
+  #cidr_block = var.vpc_cidr
 }
 
 module "ec2" {
   source = "./terraform-workspace/modules/ec2"
-  instance_type   = var.ec2_instance_type
-  ami_id = var.ec2_ami_id
+  #instance_type   = var.ec2_instance_type
+  #ami_id = var.ec2_ami_id
   }
