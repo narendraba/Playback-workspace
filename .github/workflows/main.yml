@@ -1,0 +1,51 @@
+name: Terraform Workspace Management
+ 
+on:
+  push:
+    branches:
+      - Master
+      - dev
+      - staging
+      - prod
+ 
+jobs:
+  terraform:
+    name: Manage Terraform Workspaces
+    runs-on: ubuntu-latest
+ 
+    steps:
+      # Step 1: Checkout the repository
+      - name: Checkout Code
+        uses: actions/checkout@v3
+ 
+      # Step 2: Setup Terraform
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: 1.5.6
+          
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v3
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_KEY }}
+          aws-region: ap-south-1
+ 
+      # Step 3: Initialize Terraform
+      - name: Terraform Init
+        run: terraform init
+ 
+      # Step 4: Select/Create Workspace
+      - name: Select or Create Workspace
+        run: |
+          branch=$(echo "${{ github.ref_name }}" | awk -F/ '{print $NF}')
+          terraform workspace select $branch || terraform workspace new $branch
+ 
+      # Step 5: Plan Changes
+      - name: Terraform Plan
+        run: terraform plan -var-file=${{ github.ref_name }}.tfvars -out=tfplan
+ 
+      # Step 6: Apply Changes
+      - name: Terraform Apply
+        if: github.ref_name != 'prod'
+        run: terraform apply -auto-approve tfplan
