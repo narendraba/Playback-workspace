@@ -9,12 +9,12 @@ variable "vpc_cidr" {
   type = string
 }
 
-variable "ec2_instance_type" {
+variable "instance_type" {
   description = "EC2 instance type"
   type = string 
 }
 
-variable "ec2_ami_id" {
+variable "ami_id" {
   description = "AMI ID for ec2 instance "
   type = string
 }
