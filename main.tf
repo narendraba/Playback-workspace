@@ -12,10 +12,10 @@ provider "aws" {
   region = var.aws_region
 }
 
-module "vpc" {
-  source = "./terraform-workspace/modules/vpc"
+#module "vpc" {
+#  source = "./terraform-workspace/modules/vpc"
   #cidr_block = var.vpc_cidr
-}
+#}
 
 module "ec2" {
   source = "./terraform-workspace/modules/ec2"
