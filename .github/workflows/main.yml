@@ -3,10 +3,10 @@ name: Terraform Workspace Management
 on:
   push:
     branches:
-      - Master
+      #- Master
       - dev
-      - staging
-      - prod
+      #- staging
+      #- prod
  
 jobs:
   terraform:
