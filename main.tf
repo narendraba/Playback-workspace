@@ -19,6 +19,6 @@ provider "aws" {
 
 module "ec2" {
   source = "./terraform-workspace/modules/ec2"
-  #instance_type   = var.ec2_instance_type
-  #ami_id = var.ec2_ami_id
+  instance_type   = var.ec2_instance_type
+  ami_id = var.ec2_ami_id
   }
