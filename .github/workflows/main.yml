@@ -48,4 +48,4 @@ jobs:
       # Step 6: Apply Changes
       - name: Terraform Apply
         if: github.ref_name != 'prod'
-        run: terraform apply -auto-approve tfplan
+        run: terraform apply -auto-approve
